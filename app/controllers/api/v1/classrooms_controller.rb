@@ -9,16 +9,16 @@ class Api::V1::ClassroomsController < ApplicationController
     @classroom = Classroom.new(classroom_params)
     if @classroom.save
       #flash[:success] = "classroom successfully created"
-      render json: @classroom, status: :accepted
+      render json: ClassroomSerializer.new(@classroom)
     else
-      render json: { errors: @classroom.errors.full_messages }, status: :unprocessible_entity
+      render json: { errors: @classroom.errors.full_messages }
     end
   end
   
   private
 
   def classroom_params
-    params.permit(:room_name, :age, :full)
+    params.require(:classroom).permit(:room_name, :age, :full)
   end 
 
 end
