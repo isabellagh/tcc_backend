@@ -18,7 +18,7 @@ class Api::V1::ClassroomsController < ApplicationController
   private
 
   def classroom_params
-    params.require(:classroom).permit(:room_name, :age, :full)
+    params.require(:classroom).permit(:room_name, :age, :full, :teacher_name, :user_id)
   end 
 
 end

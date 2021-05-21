@@ -4,10 +4,10 @@ class CreateChildren < ActiveRecord::Migration[6.1]
       t.string :name
       t.integer :age 
       t.string :avatar 
-      t.boolean :allergies, default: false
-      t.boolean :special_needs, default: false
-      t.integer :teacher_id
-      t.integer :classroom_id
+      t.string :allergies
+      t.string :special_needs
+      t.belongs_to :user
+      t.belongs_to :classroom
 
       t.timestamps
     end

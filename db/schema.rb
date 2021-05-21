@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_10_020549) do
+ActiveRecord::Schema.define(version: 2021_05_21_030810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,31 +19,33 @@ ActiveRecord::Schema.define(version: 2021_05_10_020549) do
     t.string "name"
     t.integer "age"
     t.string "avatar"
-    t.boolean "allergies", default: false
-    t.boolean "special_needs", default: false
-    t.integer "teacher_id"
-    t.integer "classroom_id"
+    t.string "allergies"
+    t.string "special_needs"
+    t.bigint "user_id"
+    t.bigint "classroom_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["classroom_id"], name: "index_children_on_classroom_id"
+    t.index ["user_id"], name: "index_children_on_user_id"
   end
 
   create_table "classrooms", force: :cascade do |t|
     t.string "room_name"
     t.integer "age"
+    t.string "teacher_name"
     t.boolean "full", default: false
+    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_classrooms_on_user_id"
   end
 
-  create_table "teachers", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "name"
-    t.integer "age"
-    t.string "image"
-    t.bigint "classroom_id"
+    t.string "email"
+    t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["classroom_id"], name: "index_teachers_on_classroom_id"
   end
 
-  add_foreign_key "teachers", "classrooms"
 end

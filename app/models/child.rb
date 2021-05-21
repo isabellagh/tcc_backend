@@ -1,4 +1,4 @@
 class Child < ApplicationRecord
-    belongs_to :classroom
-    belongs_to :teacher, optional: true
+    belongs_to :classroom, optional: true
+    belongs_to :user, optional: true
 end

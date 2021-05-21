@@ -1,11 +1,6 @@
 class Classroom < ApplicationRecord
     has_many :children
-    has_many :teachers
+    belongs_to :user
 
 
-    # def full?(students)
-    #   if students > 10
-    #     flash[:error] = "Classroom is full!"
-    #   end 
-    # end 
 end
