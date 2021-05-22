@@ -1,8 +1,13 @@
 class Api::V1::ChildrenController < ApplicationController
+  skip_before_action :authorized, only: [:index]
 
-  def index 
-    @children = Child.all
-    render json: ChildSerializer.new(@children)
+  def index
+    # if current_user
+      @children = Child.all
+      render json: ChildSerializer.new(@children)
+    # else
+    #   render json: { error: 'You need to be logged in!' }, status: :not_acceptable
+    # end 
   end 
 
   def create
