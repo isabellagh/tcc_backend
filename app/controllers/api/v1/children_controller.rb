@@ -1,5 +1,5 @@
 class Api::V1::ChildrenController < ApplicationController
-  skip_before_action :authorized, only: [:index]
+  skip_before_action :authorized, only: [:index, :update, :destroy, :create]
 
   def index
     # if current_user
@@ -19,6 +19,16 @@ class Api::V1::ChildrenController < ApplicationController
     else
       render json: { errors: @child.errors.full_messages }
     end
+  end
+
+  def update 
+    
+    binding.pry
+    
+  end
+  
+  def delete
+
   end
   
   private

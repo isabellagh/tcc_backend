@@ -1,4 +1,7 @@
 class Api::V1::ClassroomsController < ApplicationController
+  skip_before_action :authorized, only: [:index, :update, :destroy, :create]
+  before_action :set_classroom, only: [:show, :edit, :destroy]
+
 
   def index 
     @classrooms = Classroom.all
@@ -14,11 +17,34 @@ class Api::V1::ClassroomsController < ApplicationController
       render json: { errors: @classroom.errors.full_messages }
     end
   end
+
+  def update 
+    @classroom = Classroom.find_by(id: params[:id])
+    if @classroom
+      @classroom.update(classroom_params)
+      render json: {classroom: @classroom}
+    else
+      render json: {error: "Classroom could not be updated."}
+    end
+  end
+  
+  def destroy
+    if @classroom
+      @classroom.destroy
+      render json: {classroom: @classroom}
+    else 
+      render json: {error: "Classroom could not be deleted."}
+    end 
+  end 
   
   private
 
   def classroom_params
     params.require(:classroom).permit(:room_name, :age, :full, :teacher_name, :user_id)
   end 
+
+  def set_classroom
+    @classroom = Classroom.find_by(id: params[:id])
+  end
 
 end
