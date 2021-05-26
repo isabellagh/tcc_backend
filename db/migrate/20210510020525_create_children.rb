@@ -6,7 +6,6 @@ class CreateChildren < ActiveRecord::Migration[6.1]
       t.string :avatar 
       t.string :allergies
       t.string :special_needs
-      t.belongs_to :user
       t.belongs_to :classroom
 
       t.timestamps

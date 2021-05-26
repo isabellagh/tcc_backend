@@ -1,5 +1,5 @@
 class Api::V1::ClassroomsController < ApplicationController
-  skip_before_action :authorized, only: [:index, :update, :destroy, :create]
+  # skip_before_action :authorized, only: [:index, :update, :destroy, :create]
   before_action :set_classroom, only: [:show, :edit, :destroy]
 
 
@@ -40,7 +40,8 @@ class Api::V1::ClassroomsController < ApplicationController
   private
 
   def classroom_params
-    params.require(:classroom).permit(:room_name, :age, :full, :teacher_name, :user_id)
+    params.require(:classroom).permit(:room_name, :age, :full, :teacher_name) 
+    # , :user_id
   end 
 
   def set_classroom

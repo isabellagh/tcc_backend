@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_21_030810) do
+ActiveRecord::Schema.define(version: 2021_05_10_020525) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,12 +21,10 @@ ActiveRecord::Schema.define(version: 2021_05_21_030810) do
     t.string "avatar"
     t.string "allergies"
     t.string "special_needs"
-    t.bigint "user_id"
     t.bigint "classroom_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["classroom_id"], name: "index_children_on_classroom_id"
-    t.index ["user_id"], name: "index_children_on_user_id"
   end
 
   create_table "classrooms", force: :cascade do |t|
@@ -34,16 +32,6 @@ ActiveRecord::Schema.define(version: 2021_05_21_030810) do
     t.integer "age"
     t.string "teacher_name"
     t.boolean "full", default: false
-    t.bigint "user_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_classrooms_on_user_id"
-  end
-
-  create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

@@ -5,7 +5,6 @@ class CreateClassrooms < ActiveRecord::Migration[6.1]
       t.integer :age
       t.string :teacher_name
       t.boolean :full, default: false
-      t.belongs_to :user
 
       t.timestamps
     end
