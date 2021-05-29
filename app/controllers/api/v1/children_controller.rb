@@ -1,9 +1,19 @@
 class Api::V1::ChildrenController < ApplicationController
+  before_action :set_child, only: [:show, :edit, :destroy]
+
 
   def index
       @children = Child.all
       render json: ChildSerializer.new(@children)
+  end 
 
+  def show 
+    @child = Child.find_by(id: params[:id])
+    if @child
+      render json: @child 
+    else
+      render json: {error: "No child found"}
+    end 
   end 
 
   def create
@@ -18,13 +28,22 @@ class Api::V1::ChildrenController < ApplicationController
   end
 
   def update 
-    
-    binding.pry
-    
+    @child = Child.find_by(id: params[:id])
+    if @child
+      @child.update(child_params)
+      render json: {child: @child}
+    else
+      render json: {error: "Child could not be updated."}
+    end
   end
   
-  def delete
-
+  def destroy
+    if @child
+      @child.destroy
+      render json: {child: @child}
+    else 
+      render json: {error: "Child could not be deleted."}
+    end 
   end
   
   private
@@ -32,5 +51,9 @@ class Api::V1::ChildrenController < ApplicationController
   def child_params
     params.require(:child).permit(:name, :age, :avatar, :allergies, :special_needs, :classroom_id)
   end 
+
+  def set_child
+    @child = Child.find_by(id: params[:id])
+  end
 
 end

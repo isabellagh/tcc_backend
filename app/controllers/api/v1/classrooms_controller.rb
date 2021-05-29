@@ -8,6 +8,15 @@ class Api::V1::ClassroomsController < ApplicationController
     render json: ClassroomSerializer.new(@classrooms)
   end
 
+  def show 
+    @classroom = Classroom.find_by(id: params[:id])
+    if @classroom
+      render json: @classroom 
+    else
+      render json: {error: "No classroom found"}
+    end 
+  end 
+
   def create
     @classroom = Classroom.new(classroom_params)
     if @classroom.save
