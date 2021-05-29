@@ -1,5 +1,5 @@
 class Api::V1::ChildrenController < ApplicationController
-  before_action :set_child, only: [:show, :edit, :destroy]
+  before_action :set_child, only: [:show, :update, :destroy]
 
 
   def index
@@ -28,12 +28,11 @@ class Api::V1::ChildrenController < ApplicationController
   end
 
   def update 
-    @child = Child.find_by(id: params[:id])
     if @child
       @child.update(child_params)
-      render json: {child: @child}
+      render json: @child, status: :accepted
     else
-      render json: {error: "Child could not be updated."}
+      render json: { errors: @child.errors.full_messages }, status: :unprocessible_entity
     end
   end
   

@@ -1,6 +1,6 @@
 class Api::V1::ClassroomsController < ApplicationController
   # skip_before_action :authorized, only: [:index, :update, :destroy, :create]
-  before_action :set_classroom, only: [:show, :edit, :destroy]
+  before_action :set_classroom, only: [:show, :update, :destroy]
 
 
   def index 
@@ -31,9 +31,9 @@ class Api::V1::ClassroomsController < ApplicationController
     @classroom = Classroom.find_by(id: params[:id])
     if @classroom
       @classroom.update(classroom_params)
-      render json: {classroom: @classroom}
+      render json: @classroom, status: :accepted
     else
-      render json: {error: "Classroom could not be updated."}
+      render json: { errors: @classroom.errors.full_messages }, status: :unprocessible_entity
     end
   end
   
